@@ -1,0 +1,21 @@
+ZHP\RokRegionowBundle\Entity\User:
+  type: entity
+  table: fos_user
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    admin:
+      type: boolean
+      default: false
+      nullable: true
+  manyToOne:
+    team:
+      targetEntity: Team
+      inversedBy: users
+      joinColumn: 
+        name: team_id
+        referencedColumnName: id
+  lifecycleCallbacks: {  }

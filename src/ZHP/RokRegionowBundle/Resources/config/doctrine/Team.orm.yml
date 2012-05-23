@@ -1,0 +1,62 @@
+ZHP\RokRegionowBundle\Entity\Team:
+  type: entity
+  table: team
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    name:
+      type: string
+      length: '255'
+      nullable: false
+    shortName:
+      type: string
+      length: '30'
+      nullable: false
+      unique: true
+    city:
+      type: string
+      length: '255'
+      nullable: false
+    troop:
+      type: string
+      length: '255'
+      nullable: true
+    squadron:
+      type: string
+      length: '255'
+      nullable: true
+    building:
+      type: string
+      length: '255'
+      nullable: true
+    street:
+      type: string
+      length: '255'
+      nullable: true
+    latitude:
+      type: float
+      nullable: true
+    longitude:
+      type: float
+      nullable: true
+
+  oneToMany:
+    actions:
+      targetEntity: Action
+      mappedBy: team
+    users:
+      targetEntity: User
+      mappedBy: team
+  manyToOne:
+    region:
+      targetEntity: Region
+      inversedBy: teams
+      joinColumn: 
+        name: region_id
+        referencedColumnName: id
+  lifecycleCallbacks: 
+    preUpdate: [ geocode ]
+    prePersist: [ geocode ]

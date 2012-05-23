@@ -1,0 +1,32 @@
+ZHP\RokRegionowBundle\Entity\Step:
+  properties:
+    movie:
+      - Url:
+
+ZHP\RokRegionowBundle\Entity\Document:
+  properties:
+    file:
+      - File:
+          maxSize: 8196k
+          mimeTypes: [application/pdf, application/x-pdf]
+          mimeTypesMessage: "dozwolone są jedynie pliki PDF"
+          uploadIniSizeErrorMessage: "zdjęcje jest za duże, maksymalny rozmiar to 8 megabajtów"
+          uploadFormSizeErrorMessage: "zdjęcje jest za duże, maksymalny rozmiar to 8 megabajtów"
+
+ZHP\RokRegionowBundle\Entity\Photo:
+  properties:
+    file:
+      - File:
+          maxSize: 1024k
+          mimeTypes: [image/jpg, image/jpeg, image/png]
+          mimeTypesMessage: "dozwolone są jedynie pliki graficzne (jpg, png)"
+          uploadIniSizeErrorMessage: "zdjęcje jest za duże, maksymalny rozmiar to 1 megabajt"
+          uploadFormSizeErrorMessage: "zdjęcje jest za duże, maksymalny rozmiar to 1 megabajt"
+
+ZHP\RokRegionowBundle\Entity\Team:
+  constraints:
+    - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: shortName
+
+ZHP\RokRegionowBundle\Entity\User:
+  constraints:
+    - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email

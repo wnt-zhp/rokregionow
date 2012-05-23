@@ -1,0 +1,64 @@
+{{ form_errors(form) }}
+
+{{ form_row(form.name) }}
+
+<div id="spheres" class="attribute">
+  <p><strong>
+  Których sfer Roku Regionów dotyczy ta akcja?
+  </strong></p>
+
+  <div class="sphere">
+    <img title="historia" src="{{asset("img/spheres/historia_small.gif")}}">
+    {{ form_widget(form.sphereHistory) }}
+  </div>
+
+  <div class="sphere">
+    <img title="przyroda" src="{{asset("img/spheres/przyroda_small.gif")}}">
+    {{ form_widget(form.sphereNature) }}
+  </div>
+
+  <div class="sphere">
+    <img title="język" src="{{asset("img/spheres/język_small.gif")}}">
+    {{ form_widget(form.sphereLanguage) }}
+  </div>
+
+  <div class="sphere">
+    <img title="folklor" src="{{asset("img/spheres/folklor_small.gif")}}">
+    {{ form_widget(form.sphereFolklore) }}
+  </div>
+
+  <div class="sphere">
+    <img title="postacie" src="{{asset("img/spheres/postacie_small.gif")}}">
+    {{ form_widget(form.sphereCharacters) }}
+  </div>
+
+  <div class="sphere">
+    <img title="stereotypy" src="{{asset("img/spheres/stereotypy_small.gif")}}">
+    {{ form_widget(form.sphereStereotypes) }}
+  </div>
+
+  <div class="sphere">
+    <img title="miejsca" src="{{asset("img/spheres/miejsca_small.gif")}}">
+    {{ form_widget(form.spherePlaces) }}
+  </div>
+
+  <div class="sphere">
+    <img title="kulinaria" src="{{asset("img/spheres/kulinaria_small.gif")}}">
+    {{ form_widget(form.sphereCuisine) }}
+  </div>
+</div>
+
+<div id="steps">
+  <h2> Kroki </h2>
+
+  <h3> Krok pierwszy </h3>
+  {% set n = 0 %}
+  {% include "ZHPRokRegionowBundle:Actions:step_form.html.twig" %}
+  <h3> Krok drugi </h3>
+  {% set n = 1 %}
+  {% include "ZHPRokRegionowBundle:Actions:step_form.html.twig" %}
+</div>
+
+{{ form_rest(form) }}
+
+<input type="submit" value="Gotowe"/>

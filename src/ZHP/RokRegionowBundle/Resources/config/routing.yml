@@ -1,0 +1,94 @@
+#==============
+# users
+#==============
+user_create:
+  pattern: /nowy_uzytkownik
+  defaults: {_controller: ZHPRokRegionowBundle:Users:create }
+
+#==============
+# regions
+#==============
+regions_list:
+  pattern: /regiony/
+  defaults: {_controller: ZHPRokRegionowBundle:Regions:index }
+
+region_show:
+  pattern: /regiony/{slug}/
+  defaults: {_controller: ZHPRokRegionowBundle:Regions:show }
+
+#==============
+# teams
+#==============
+
+teams_list:
+  pattern: /
+  defaults: { _controller: ZHPRokRegionowBundle:Teams:index }
+
+team_create:
+  pattern: /nowa_druzyna
+  defaults: {_controller: ZHPRokRegionowBundle:Teams:create }
+
+team_show:
+  pattern: /druzyna/{slug}/
+  defaults: {_controller: ZHPRokRegionowBundle:Teams:show }
+  options:
+    expose: true
+
+teams_locations:
+  pattern: /lokacje/
+  defaults: {_controller: ZHPRokRegionowBundle:Teams:locations }
+  options:
+    expose: true
+
+team_update:
+  pattern: /druzyna/{slug}/edytuj/
+  defaults: {_controller: ZHPRokRegionowBundle:Teams:update }
+
+#==============
+# actions
+#==============
+
+team_action_show:
+  pattern: /druzyna/{slug}/akcja/{id}/
+  defaults: {_controller: ZHPRokRegionowBundle:Actions:show }
+
+team_action_update:
+  pattern: /druzyna/{slug}/akcja/{id}/edytuj/
+  defaults: {_controller: ZHPRokRegionowBundle:Actions:update }
+
+team_action_create:
+  pattern: /druzyna/{slug}/nowa_akcja/
+  defaults: {_controller: ZHPRokRegionowBundle:Actions:create }
+
+team_action_delete:
+  pattern: /druzyna/{slug}/akcja/{id}/usun
+  defaults: {_controller: ZHPRokRegionowBundle:Actions:delete }
+
+
+#==============
+# users
+#==============
+
+fos_user_security_login: 
+  pattern: /logowanie/
+  defaults: { _controller: FOSUserBundle:Security:login }
+
+fos_user_security_check:
+  pattern: /sprawdz_logowanie/
+  defaults: { _controller: FOSUserBundle:Security:check }
+
+fos_user_security_logout:
+  pattern: /wylogowanie/
+  defaults: { _controller: FOSUserBundle:Security:logout }
+
+fos_user_profile:
+    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+    prefix: /profil/
+
+fos_user_resetting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+    prefix: /reset_hasla/
+
+fos_user_change_password:
+    defaults: { _controller: FOSUserBundle:ChangePassword:changePassword }
+    pattern: /zmiana_hasla/

@@ -1,0 +1,44 @@
+<div class="description attribute">
+  {{ form_errors(form.steps[n].description) }}
+  {{ form_label(form.steps[n].description) }}
+  {{ form_widget(form.steps[n].description) }}
+  <p>Przygotuj opis tego kroku (najwyżej 5000 znaków) w edytorze tekstu albo w notatniku i wklej go do tego okienka</p>
+</div>
+
+<div class="movie attribute">
+  {{ form_errors(form.steps[n].movie) }}
+  {{ form_label(form.steps[n].movie) }}
+  {{ form_widget(form.steps[n].movie) }}
+</div>
+
+<div class="document attribute">
+  <h4> Dokument z materiałami </h4>
+  {{ form_widget(form.steps[n].documents[0]) }}
+  <p>
+  Tu możesz przesłać plik PDF z materiałami, które zdobyliście lub wypracowaliście, 
+  realizując Rok Regionów, a które nie zmieściły się w opisie kroku 1 lub 2. 
+  Pamiętajcie o podaniu źródła, z którego pochodzą te materiały.
+  Nie wiesz, jak zrobić plik w formacie PDF? 
+  <a href="http://www.youtube.com/watch?v=NsIqRbM3OJw">Obejrzyj poradnik</a> 
+  </p>
+</div>
+
+<div class="attribute photos">
+  <h4> Zdjęcia </h4>
+  <div id="action_steps_{{n}}_photos" data-prototype="<div><div id='action_steps_{{n}}_photos_$$name$$'><div><label for='action_steps_{{n}}_photos_$$name$$_file'>Wybierz zdjęcie z dysku</label><input type='file' id='action_steps_{{n}}_photos_$$name$$_file' name='action[steps][{{n}}][photos][$$name$$][file]' /></div><div><label for='action_steps_{{n}}_photos_$$name$$_name'>Wpisz tytuł zdjęcia</label><input type='text' id='action_steps_{{n}}_photos_$$name$$_name' name='action[steps][{{n}}][photos][$$name$$][name]' /></div><div><label for='action_steps_{{n}}_photos_$$name$$_description'>opis</label><textarea id='action_steps_1_photos_$$name$$_description' name='action[steps][{{n}}][photos][$$name$$][description]'></textarea></div></div></div>">
+  {% set i = 0 %}
+  {% for photo_form in form.steps[n].photos %}
+    <div class="photo">
+      {% if action.steps[n].photos[i].getWebPath %}
+        <p>obecne zdjęcie:</p>
+        <img src="{{asset(action.steps[n].photos[i].getWebPath)}}" width="80">
+        <a href="#" class="delete_photo">Usuń zdjęcie</a>
+      {% endif %}
+      {% set i = i + 1 %}
+      {{ form_widget(photo_form) }}
+    </div>
+  {% endfor %}
+  </div>
+  {{ form_widget(form.steps[n].photos) }}
+  <a href="#" class="add_photo">Dodaj kolejne zdjęcie</a>
+</div>

@@ -1,0 +1,10 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+  <h2> Nowa akcja </h2>
+  <form action="{{ path('team_action_create', {'slug': team.getShortName}) }}" method="post" class="well form-horizontal" {{ form_enctype(form) }}>
+    <fieldsed>
+      {% include "ZHPRokRegionowBundle:Actions:form.html.twig" %}
+    </fieldset>
+  </form>
+{% endblock %}

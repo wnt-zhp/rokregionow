@@ -1,0 +1,11 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+  <h2> Edytuj akcję </h2>
+  <form id="edit_action" action="{{ path('team_action_update', {'slug': team.shortName, 'id': action.id}) }}" method="post" {{ form_enctype(form) }}>
+
+    {% include "ZHPRokRegionowBundle:Actions:form.html.twig" %}
+
+  </form>
+{% endblock %}
+

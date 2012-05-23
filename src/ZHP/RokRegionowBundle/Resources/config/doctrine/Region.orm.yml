@@ -1,0 +1,23 @@
+ZHP\RokRegionowBundle\Entity\Region:
+  type: entity
+  table: region
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    name:
+      type: string
+      length: '255'
+      nullable: false
+    slug:
+      type: string
+      length: '255'
+      nullable: false
+  oneToMany:
+    teams:
+      targetEntity: Team
+      mappedBy: region
+
+  lifecycleCallbacks: {  }

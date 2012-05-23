@@ -1,0 +1,24 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+  <h2>{{team.name}}</h2>
+  {% if (app.user and app.user.canEdit(team)) %}
+    <h3> Edycja </h3>
+    <ul>
+      <li>
+        <a href="{{path('team_update', {slug: team.shortName})}}">Edytuj dane drużyny</a>
+      </li>
+      <li>
+        <a href="{{path('team_action_create', {slug: team.shortName})}}">Dodaj akcję</a>
+      </li>
+    </ul>
+  {% endif %}
+  <h3> Akcje drużyny </h3>
+  <ul>
+    {% for action in actions %}
+      <li>
+        <a href="{{path('team_action_show', {slug: team.shortName, id: action.id})}}">{{action.name}}</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

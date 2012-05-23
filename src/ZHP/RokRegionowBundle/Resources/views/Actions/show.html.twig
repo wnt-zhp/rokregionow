@@ -1,0 +1,66 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+  <h3><a href="{{path('team_show', {slug: team.shortName})}}">{{team.name}}</a></h3>
+  <h2>{{action.name}}</h2>
+  {% if app.user and app.user.canEdit(team)%}
+    <div class="actions">
+      <a href="{{path('team_action_update', {slug: team.shortName, id: action.id})}}">Edytuj akcję</a>
+      <br>
+      <a class="delete" href="{{path('team_action_delete', {slug: team.shortName, id: action.id})}}">Usuń akcję</a>
+      Uwaga! Usunięcie akcji uniemożliwia jej przywrócenie!
+    </div>
+  {% endif %}
+
+  {% for sphere in action.spheres %}
+    <img title="{{sphere}}" src="{{asset("img/spheres/"~sphere~"_small.gif")}}">
+  {% endfor %}
+
+  {% set i = 1 %}
+  {% for step in action.steps %}
+    <div class="step">
+      <h3>Krok {{i}}</h3>
+      <h4>Opis:</h4>
+      <div class="step_description">
+        <p class="step_description">{{step.description}}</p>
+      </div>
+
+      {% if step.photos %}
+        <h4>Zdjęcia:</h4>
+        <div class="photos">
+          {% for photo in step.photos %}
+            <div class="photo">
+              <img src="{{asset(photo.getWebPath)}}">
+              <p><strong>{{photo.name}}</strong></p>
+              <p>{{photo.description}}</p>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      {% if step.movie %}
+        <h4>Film:</h4>
+        <div class="movie">
+          <iframe title="movie" class="player" type="text/html" 
+          width="640" height="390" src="{{step.movie}}"
+          frameborder="0" allowFullScreen></iframe>
+        </div>
+      {% endif %}
+
+      {% if step.documents %}
+        <h4>Zdobyte materiały</h4>
+        {% for document in step.documents %}
+          <div class="document">
+            {% if document.getWebPath %}
+              <p><a href="/{{document.getWebPath}}">Pobierz dokument</a> ze zdobytymi materiałami.</p>
+            {% else %}
+              <p>Brak materiałów dla tego kroku</p>
+            {% endif %}
+          </div>
+        {% endfor %}
+      {% endif %}
+      {% set i = i + 1 %}
+    </div>
+  {% endfor %}
+
+{% endblock %}

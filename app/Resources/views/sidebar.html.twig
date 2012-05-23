@@ -1,0 +1,12 @@
+{% block sidebar %}
+{% endblock %}
+
+<a href="http://rokregionow.zhp.pl">Powrót na stronę Roku Regionów</a>
+<img src="{{asset('img/rr.png')}}">
+<ul class="nav nav-list">
+  {% for region in regions() %}
+    <li>
+      <a href="{{path('region_show', {slug: region.slug})}}">{{region.name}}</a>
+    </li>
+  {% endfor %}
+</ul>

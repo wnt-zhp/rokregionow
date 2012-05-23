@@ -1,0 +1,39 @@
+ZHP\RokRegionowBundle\Entity\Step:
+  type: entity
+  table: step
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    description:
+      type: text
+      nullable: true
+    movie:
+      type: string
+      length: 255
+      nullable: true
+
+  manyToOne:
+    action:
+      targetEntity: Action
+      inversedBy: steps
+      joinColumn:
+        name: action_id
+        referencedColumnName: id
+
+  oneToMany:
+    photos:
+      targetEntity: Photo
+      cascade: [persist, remove]
+      mappedBy: step
+      orphanRemoval: true
+    documents:
+      targetEntity: Document
+      cascade: [persist, remove]
+      mappedBy: step
+
+  lifecycleCallbacks:
+    preUpdate: [correctMovie]
+    prePersist: [correctMovie]

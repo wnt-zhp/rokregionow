@@ -1,0 +1,53 @@
+ZHP\RokRegionowBundle\Entity\Action:
+  type: entity
+  table: action
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    name:
+      type: string
+      length: '255'
+      nullable: false
+    sphereHistory:
+      type: boolean
+      default: false
+    sphereNature:
+      type: boolean
+      default: false
+    sphereFolklore:
+      type: boolean
+      default: false
+    sphereLanguage:
+      type: boolean
+      default: false
+    sphereCharacters:
+      type: boolean
+      default: false
+    sphereStereotypes:
+      type: boolean
+      default: false
+    spherePlaces:
+      type: boolean
+      default: false
+    sphereCuisine:
+      type: boolean
+      default: false
+
+  manyToOne:
+    team:
+      targetEntity: Team
+      inversedBy: actions
+      joinColumn:
+        name: team_id
+        referencedColumnName: id
+
+  oneToMany:
+    steps:
+      targetEntity: Step
+      cascade: [persist, remove]
+      mappedBy: action
+
+  lifecycleCallbacks: {  }

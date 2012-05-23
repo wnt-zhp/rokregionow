@@ -1,0 +1,15 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+  <h2>{{region.name}}</h2>
+  <ul>
+    {% for team in region.teams %}
+      <li>
+        {% if team.withAction %} <strong> {% endif %}
+        <a href="{{path('team_show', {slug: team.shortName})}}">{{team.name}}</a>
+        {% if team.withAction %} </strong> {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
+

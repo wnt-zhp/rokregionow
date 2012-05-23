@@ -1,0 +1,39 @@
+ZHP\RokRegionowBundle\Entity\Photo:
+  type: entity
+  table: photo
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    name:
+      type: string
+      length: '255'
+      nullable: true
+    description:
+      type: string
+      length: '255'
+      nullable: true
+    path:
+      type: string
+      length: '255'
+      nullable: true
+    isChanged:
+      type: boolean
+      nullable: true
+
+  manyToOne:
+    step:
+      targetEntity: Step
+      inversedBy: photos
+      joinColumn:
+        name: step_id
+        referencedColumnName: id
+
+  lifecycleCallbacks:
+    preUpdate: [ preUpload, resetIsChanged ]
+    prePersist: [ preUpload, resetIsChanged ]
+    postUpdate: [ upload ]
+    postPersist: [ upload ]
+    preRemove: [ removeUpload ]

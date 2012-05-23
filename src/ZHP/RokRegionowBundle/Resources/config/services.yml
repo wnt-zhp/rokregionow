@@ -1,0 +1,12 @@
+services:
+  zhp.twig.extension:
+    class: ZHP\RokRegionowBundle\Extension\RokRegionowExtension
+    tags:
+      - { name: twig.extension }
+    arguments:
+      doctrine: "@doctrine"
+
+  user.rok_regionow_user_manager:
+    class: ZHP\RokRegionowBundle\Model\RokRegionowUserManager
+    public: false
+    parent: fos_user.user_manager.default

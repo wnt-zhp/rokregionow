@@ -1,0 +1,84 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+  <div class="info">
+  <h2>Uwaga, ważne informacje</h2>
+  <ul>
+    <li>w przypadku problemów z logowaniem, proszę skorzystać z przeglądarki innej niż Internet Explorer 
+    (np. Firefox, Opera, Chrome) - jeżeli problemy będą występowały nadal, prosimy o kontakt mailowy</li>
+    <li>w przypadku wklejania opisów kroków bezpośrednio z Worda lub innego edytora, mogą wystąpić problemy z cudzysłowami,
+    wówczas najlepiej poprawić to ręcznie. Pracujemy nad automatycznym rozwiązaniem tego problemu</li>
+    <li>uzupełnienie adresu drużyny (budynku i ulicy) poprawi jego pozycję na mapie, dzięki czemu drużyna będzie łatwiejsza do znalezienia!
+    Jeżeli pozycja drużyny na mapie nie odpowiada podanemu adresowi - prosimy o kontakt mailowy.
+    </li>
+  </ul>
+  </div>
+  <div id="map_canvas" style="width: 500px; height: 500px;"></div>
+{% endblock %}
+
+{% block javascripts %}
+  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDNoOCMmLwL-Qb8xQ7ddEFXfb6SA_iId-M&sensor=true"></script>
+  <script type="text/javascript">
+
+    var map;
+    var currentInfoWindow;
+
+    function initialize() {
+      var myOptions = {
+        center: new google.maps.LatLng(52.15, 19.55),
+        zoom: 6,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+      map = new google.maps.Map(document.getElementById("map_canvas"),
+          myOptions);
+      };
+
+    function infoContent(team) {
+      var route = Routing.generate('team_show', {slug: team['shortname']});
+      var content = "<a href=" + route + ">"+team['name']+"</a><br>";
+      var spheres = ['historia', 'folklor', 'język', 'miejsca', 'stereotypy', 'kulinaria', 'postacie', 'przyroda'];
+      for (var i in spheres) {
+        if (team[spheres[i]] == "1") {
+          content += "<img src='/web/img/spheres/" + spheres[i] + "_tiny.gif'>";
+        }
+      }
+      return content;
+    }
+
+    function createInfoWindow(marker, team) {
+      google.maps.event.addListener(marker, 'click', function() {
+
+        if (currentInfoWindow) currentInfoWindow.close();
+
+        var infowindow = new google.maps.InfoWindow({
+          content: infoContent(team)
+        });
+
+        currentInfoWindow = infowindow;
+
+        infowindow.open(map,marker);
+      });
+    }
+
+    function createMarker(team) {
+      return new google.maps.Marker({
+        position: new google.maps.LatLng(team['latitude'], team['longitude']), 
+        map: map,
+        title:team['name']
+      });
+    }
+
+    function putMarkers() {
+      $.getJSON(Routing.generate('teams_locations'), function(data) {
+        $.each(data, function(i, team) {
+          var marker = createMarker(team);
+          createInfoWindow(marker, team);
+        });
+      });
+    }
+
+    initialize();
+    putMarkers();
+
+  </script>
+{% endblock %}

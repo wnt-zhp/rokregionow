@@ -1,0 +1,24 @@
+<div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="{{path('teams_list')}}">Rok Regionów</a>
+      <ul class="nav">
+        <li><a href="{{path('teams_list')}}">Strona główna</a></li>
+        {% if app.user %}
+          {% if app.user.team %}
+            <li><a href="{{path('team_show', {slug: app.user.team.shortName})}}">Moja drużyna</a></li>
+          {% endif %}
+          {% if app.user.admin %}
+            <li><a href="#">Panel admina</a></li>
+            <li><a href="{{path('team_create')}}">Dodaj drużynę</a></li>
+            <li><a href="{{path('user_create')}}">Dodaj użytkownika</a></li>
+          {% endif %}
+          <li><a href="{{path('fos_user_change_password')}}">Zmień hasło</a></li>
+          <li><a href="{{path('fos_user_security_logout')}}">Wyloguj</a></li>
+        {% else %}
+          <li><a href="{{path('fos_user_security_login')}}">Logowanie</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</div>

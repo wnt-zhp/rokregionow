@@ -1,0 +1,14 @@
+vendor/*
+*/logs/*
+*/cache/*
+web/uploads/*
+web/bundles/*
+
+# Configuration files
+app/config/parameters.ini
+app/config/parameters.ini.prod
+
+.DS_STORE
+.swp
+.swo
+*~

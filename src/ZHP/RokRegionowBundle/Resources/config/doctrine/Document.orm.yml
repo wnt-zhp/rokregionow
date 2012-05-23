@@ -1,0 +1,31 @@
+ZHP\RokRegionowBundle\Entity\Document:
+  type: entity
+  table: document
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    path:
+      type: string
+      length: '255'
+      nullable: true
+    isChanged:
+      type: boolean
+      nullable: true
+
+  manyToOne:
+    step:
+      targetEntity: Step
+      inversedBy: documents
+      joinColumn:
+        name: step_id
+        referencedColumnName: id
+
+  lifecycleCallbacks:
+    preUpdate: [ preUpload, resetIsChanged ]
+    prePersist: [ preUpload, resetIsChanged ]
+    postUpdate: [ upload ]
+    postPersist: [ upload ]
+    postRemove: [ removeUpload ]
